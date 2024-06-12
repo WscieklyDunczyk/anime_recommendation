@@ -1,0 +1,77 @@
+{% extends "recommendation/base.html" %} 
+{% block content %}
+<div class="container">
+	{% for anime in anime_list %}
+	<div class="col s12 m7 mt-4">
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-2">
+        <img src="{{ anime.image }}" class="img-fluid rounded-start imgHeight" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h2 class="card-title"><a href="{% url 'anime-detail' anime.id %}">{{ anime.title }}</a></h2>
+          <p class="card-text">{{ anime.synopsis|truncatechars:400 }}</p>
+          {% for genre in anime.strGenres %}
+          <span class="badge">{{ genre }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-2 side-panel">
+        <div class="card-body">
+          <p class="card-text"><small>Rodzaj: <b>{{ anime.anime_type }}</b></small></p>
+          <p class="card-text"><small>Liczba odcinków: <b>{{ anime.episodes }}</b></small></p>
+          <p class="card-text"><small>Status: <b>{{ anime.status }}</b></small></p>
+          <p class="card-text"><small><b>{{ anime.aired }}</b></small></p>
+          <p class="card-text"><small>Ocena: <b>{{ anime.score }}</b></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+	{% endfor %}
+</div>
+<div class="container row mt-4">
+	<nav aria-label="Page navigation example">
+		<ul class="pagination justify-content-center">
+			{% if page_obj.has_previous %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{ page_obj.previous_page_number }}"
+					>Previous</a
+				>
+			</li>
+			{% else %}
+			<li class="page-item disabled">
+				<a class="page-link" href="#" tabindex="-1" aria-disabled="True"
+					>Previous</a
+				>
+			</li>
+			{% endif %} 
+      {% for i in page_obj.paginator.page_range %} 
+      {% if page_obj.number == i %}
+			<li class="page-item active" aria-current="page">
+				<span class="page-link"> {{ i }} </span>
+			</li>
+			{% else %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{ i }}">{{ i }}</a>
+			</li>
+			{% endif %} 
+      {% endfor %} 
+      {% if page_obj.has_next %}
+			<li class="page-item">
+				<a class="page-link" href="?page={{ page_obj.next_page_number }}"
+					>Next</a
+				>
+			</li>
+			{% else %}
+			<li class="page-item disabled">
+				<a class="page-link" href="#" tabindex="-1" aria-disabled="True"
+					>Next</a
+				>
+			</li>
+			{% endif %}
+		</ul>
+	</nav>
+</div>
+
+{% endblock content %}

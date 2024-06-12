@@ -1,0 +1,47 @@
+{% extends "recommendation/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="bg-steel text-white">
+  <div class="media row">
+      <img class="col-4 account-img" src="{{ user.profile.image.url }}">
+      <div class="col-4 media-body">
+        <h2 class="account-heading text-white">{{ user.username }}</h2>
+        <p class="text-white">{{ user.email }}</p>
+        <a class="btn btn-warning btn-sm mt-1 mb-1" href="">Edytuj profil</a>
+      </div>
+  </div>
+</div>
+    <div class="article-metadata mt-3">
+        <h3 class="text-white">Lista obejrzanych</h3>
+    </div>
+{% for anime in animeList %}
+    <div class="col s12 m7 mt-4">
+  <div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-2">
+        <img src="{{ anime.image }}" class="img-fluid rounded-start imgHeight" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h2 class="card-title"><a href="{% url 'anime-detail' anime.id %}">{{ anime.title }}</a></h2>
+          <p class="card-text">{{ anime.synopsis|truncatechars:400 }}</p>
+          {% for genre in anime.strGenres %}
+          <span class="badge">{{ genre }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-md-2 side-panel">
+        <div class="card-body">
+          <p class="card-text"><small>Rodzaj: <b>{{ anime.anime_type }}</b></small></p>
+          <p class="card-text"><small>Liczba odcinków: <b>{{ anime.episodes }}</b></small></p>
+          <p class="card-text"><small>Status: <b>{{ anime.status }}</b></small></p>
+          <p class="card-text"><small><b>{{ anime.aired }}</b></small></p>
+          <p class="card-text"><small>Ocena: <b>{{ anime.score }}</b></small></p>
+        </div>
+    </div>
+  </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock content %}

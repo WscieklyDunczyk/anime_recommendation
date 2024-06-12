@@ -1,0 +1,17 @@
+{% extends "recommendation/base.html" %}
+
+{% block content %}
+  <div class="content-section">
+    <form method="POST" action="">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legenda class="border-bottom mb-4">Usuń anime</legenda>
+        <h2>Jesteś pewien że chcesz usunąć {{ object.title }}</h2>
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-danger" type="submit">Tak, Usuń</button>
+        <a class="btn btn-outline-secondary" href="{% url 'anime-detail' object.id %}">Wróć</a>
+      </div>
+    </form>
+  </div>
+{% endblock content %}

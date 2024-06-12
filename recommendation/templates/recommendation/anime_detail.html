@@ -1,0 +1,25 @@
+{% extends "recommendation/base.html" %}
+{% block content %}
+  <article class="media content-section">
+    <img class="rounded-circle article-img" src="{{ object.image }}">
+    <div class="media-body">
+      <div class="article-metadata">
+        <a class="mr-2" href="#"></a>
+        <small class="text-muted">{{ object.anime_type }} - {{ object.status }} - {{ object.aired }}</small>
+        {% if user.is_authenticated %}
+          <div>
+            {% if object in user.profile.anime_list.all %}
+             <a class="btn btn-warning btn-sm mt-1 mb-1" href="{% url 'delete' object.id %}">Usuń z listy</a>
+            {% else %}
+              <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'add' object.id %}">Dodaj do listy</a>
+            {% endif %}
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'anime-update' object.id %}">Update</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'anime-delete' object.id %}">Delete</a>
+          </div>
+        {% endif %}
+      </div>
+      <h2 class="article-title">{{ object.title }}</h2>
+      <p class="article-content">{{ object.synopsis }}</p>
+    </div>
+  </article>
+{% endblock content %}
