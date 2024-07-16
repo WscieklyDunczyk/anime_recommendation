@@ -1,3 +1,5 @@
+animu.fly.dev
+
 Anime recommendation
 
 Aplikacja ma na celu:
