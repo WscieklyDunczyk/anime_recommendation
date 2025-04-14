@@ -1,6 +1,11 @@
-venv
+venv_anime
 __pycache__/
-db.sqlite3
-login.text
-media/*
-!media/default.jpg
+db.sqlite
+.env
+static
+staticfiles
+pass.txt
+.dockerignore
+Dockerfile
+fly.toml
+.github

@@ -1,27 +1,24 @@
 {% extends "recommendation/base.html" %} {% block content %}
 <div class="container">
-	<div class="row row-cols-1 row-cols-md-5 g-4">
     {% for anime in anime_list %}
+    <div class="card-deck">
         <div class="card">
-            <img src="{{ anime.image }}" class="img-fluid" alt="..." style="height: 280px;">
+            <img src="{{ anime.image }}" class="card-img-top" alt="...">
             <div class="card-body">
                 <h5 class="card-title"><a href="{% url 'anime-detail' anime.id %}">{{ anime.title }}</a></h5>
-               <!-- <p class="card-text">{{ anime.synopsis|truncatechars:200 }}</p> -->
+                <p class="card-text">{{ anime.synopsis|truncatechars:400 }}</p>
                 <p class="card-text">
-                    
-              
+                    <small class="text-muted">
+                        {% for genre in anime.strGenres %}
+                        <span class="badge">{{ genre }}</span>
+                        {% endfor %}
+                    </small>
                 </p>
             </div>
-            <div class="card-body">
-              <small class="text-muted">
-                {% for genre in anime.strGenres %}
-                <span class="badge">{{ genre }}</span>
-                {% endfor %}
-              </small>
-            </div>
         </div>
+    </div>
     {% endfor %}
-  	</div>
+  </div>
   <div class="container row mt-4">
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
@@ -37,19 +34,16 @@
             >Previous</a
           >
         </li>
-        {% endif %} 
-		{% for i in page_obj.paginator.page_range %} 
-			{% if page_obj.number == i %}
+        {% endif %} {% for i in page_obj.paginator.page_range %} {% if
+        page_obj.number == i %}
         <li class="page-item active" aria-current="page">
           <span class="page-link"> {{ i }} </span>
         </li>
-        	{% else %}
+        {% else %}
         <li class="page-item">
           <a class="page-link" href="?page={{ i }}">{{ i }}</a>
         </li>
-        	{% endif %} 
-		{% endfor %} 
-		{% if page_obj.has_next %}
+        {% endif %} {% endfor %} {% if page_obj.has_next %}
         <li class="page-item">
           <a class="page-link" href="?page={{ page_obj.next_page_number }}"
             >Next</a
